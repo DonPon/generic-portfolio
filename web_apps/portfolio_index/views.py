@@ -34,7 +34,7 @@ class PersonalDetailsUpdateView(LoginRequiredMixin, UpdateView):
     model = PersonalDetails
     fields = ['name', 'title', 'bio']
     template_name = 'portfolio_index/edit_personal_details_form.html'
-    success_url = reverse_lazy('core_settings')  # Redirect to the core settings page after update
+    success_url = reverse_lazy('portfolio')  # Redirect to the core settings page after update
 
     def get_object(self, queryset=None):
         # Fetch the first object for simplicity
