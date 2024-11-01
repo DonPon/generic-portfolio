@@ -1,0 +1,25 @@
+{% extends 'base.html' %}
+
+{% block title %}{{ item.title }}{% endblock %}
+
+{% block content %}
+<header class="portfolio-header">
+    <h2 class="project-title">{{ item.title }}</h2>
+    <div class="project-details">
+        <p>{{ item.details }}</p>
+        <p>{{ item.url }}</p>
+
+    </div>
+
+    {% if user.is_authenticated %}
+    <br>
+    <div class="edit-button">
+        <a href="{% url 'project_update' item.id %}" class="btn btn-primary">Edit Project</a>
+       <form action="{% url 'project_delete' item.id %}" method="post" style="display:inline;">
+        {% csrf_token %}
+        <button type="submit" class="btn btn-danger">Delete Project</button>
+        </form>
+    </div>
+    {% endif %}
+</header>
+{% endblock %}

@@ -1,0 +1,22 @@
+{% extends 'base.html' %}
+
+{% block title %}Contact{% endblock %}
+
+{% block content %}
+{% load static %}
+<header class="contact-header">
+    <h1>Login</h1>
+</header>
+
+<div class="contact-form-container">
+  <form method="post" class="contact-form">
+      {% csrf_token %}
+      {{ form.as_p }}  <!-- Render your form here -->
+      <button type="submit">Login</button>
+  </form>
+  <!--p>
+      Don't have an account? <a href="#">Sign up</a>
+  </p-->
+
+</div>
+{% endblock %}

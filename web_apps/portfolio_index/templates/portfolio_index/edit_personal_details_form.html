@@ -1,0 +1,20 @@
+<!-- personal/templates/personal/personal_details_form.html -->
+
+{% extends 'base.html' %}
+
+{% block title %}Edit Personal Details{% endblock %}
+
+{% block content %}
+<header class="contact-header">
+<h2>Edit Personal Details</h2>
+    </header>
+<div class="contact-form-container">
+<form method="post" class="contact-form">
+    {% csrf_token %}
+    {{ form.as_p }}
+    <button type="submit" class="btn btn-success">Save Changes</button>
+</form>
+        </div>
+
+
+{% endblock %}

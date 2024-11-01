@@ -1,0 +1,17 @@
+{% extends 'base.html' %}
+
+{% block title %}Create/Update{% endblock %}
+
+{% block content %}
+{% load static %}
+<header class="contact-header">
+    <h1>{{ action_label }}</h1>
+</header>
+<div class="contact-form-container">
+<form method="post" enctype="multipart/form-data" class="contact-form">
+    {% csrf_token %}
+    {{ form.as_p }}
+    <button type="submit" class="btn btn-primary">{{ action_label }}</button>
+</form>
+
+{% endblock %}
