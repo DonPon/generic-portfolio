@@ -159,7 +159,7 @@ button.contact-label:hover {
     transition: transform 0.3s ease, box-shadow 0.3s ease;
     cursor: pointer;
     width: 100%;
-    max-width: 600px;
+    max-width: 650px;
 }
 
 .portfolio-card:hover {
@@ -388,11 +388,14 @@ button.contact-label:hover {
 }
 
 /* Mobile responsiveness */
-@media (max-width: 768px) {
+@media (max-width: 320px) {
     .portfolio-container {
         padding: 0 1rem;
     }
-
+    .portfolio-card {
+        max-width: 100%; /* Ensure it does not exceed the viewport */
+        box-sizing: border-box; /* Include padding/borders in the element's total width */
+    }
     .card-info h2 {
         font-size: 1.25rem;
     }
