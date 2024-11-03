@@ -21,6 +21,7 @@ class EnvContextMixin(ContextMixin):
         context = super().get_context_data(**kwargs)
         context['linkedin_url'] = PersonalDetails.objects.values('linkedin_url').first()
         context['github_url'] = PersonalDetails.objects.values('github_url').first()
+        context['user_name'] = PersonalDetails.objects.values('name').first()
         return context
 
 class CustomLoginView(LoginView):
