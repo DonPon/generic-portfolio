@@ -13,9 +13,16 @@
 </head>
 <body>
     <nav class="navbar">
-        <a href="https://www.linkedin.com/in/franz-eck/" target="_blank" class="icon-button" title="LinkedIn">
+        {% if linkedin_url.linkedin_url %}
+        <a href="{{ linkedin_url.linkedin_url }}" target="_blank" class="icon-button" title="LinkedIn">
             <img src="{% static 'icons/linkedin.svg' %}" alt="LinkedIn" />
         </a>
+        {% endif %}
+        {% if github_url.github_url %}
+        <a href="{{ github_url.github_url }}" target="_blank" class="icon-button" title="LinkedIn">
+            <img src="{% static 'icons/github.svg' %}" alt="Github" />
+        </a>
+        {% endif %}
         <button class="contact-label" onclick="location.href='{% url 'contact' %}'">Contact</button>
     </nav>
 

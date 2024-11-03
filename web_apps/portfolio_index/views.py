@@ -9,10 +9,19 @@ from .models import PortfolioItem, PersonalDetails
 from .forms import ContactForm, CustomLoginForm
 from dotenv import load_dotenv
 from django.core.mail import send_mail
+from django.views.generic.base import ContextMixin
 import os
 import textwrap
 # Load environment variables from .env file
 load_dotenv()
+
+
+class EnvContextMixin(ContextMixin):
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        context['linkedin_url'] = PersonalDetails.objects.values('linkedin_url').first()
+        context['github_url'] = PersonalDetails.objects.values('github_url').first()
+        return context
 
 class CustomLoginView(LoginView):
     template_name = 'portfolio_index/login.html'  # Specify your custom login template
@@ -21,7 +30,7 @@ class CustomLoginView(LoginView):
     def get_success_url(self):
         return reverse_lazy('portfolio')  # Redirect to the portfolio page after login
 
-class CoreSettingsView(TemplateView):
+class CoreSettingsView(TemplateView, EnvContextMixin):
     template_name = 'portfolio_index/portfolio.html'
 
     def get_context_data(self, **kwargs):
@@ -30,9 +39,9 @@ class CoreSettingsView(TemplateView):
         context['personal_details'] = PersonalDetails.objects.first()  # Fetch first PersonalDetails entry
         return context
 
-class PersonalDetailsUpdateView(LoginRequiredMixin, UpdateView):
+class PersonalDetailsUpdateView(LoginRequiredMixin, UpdateView, EnvContextMixin):
     model = PersonalDetails
-    fields = ['name', 'title', 'bio']
+    fields = ['name', 'title', 'bio', 'linkedin_url', 'github_url', 'skills_tools']
     template_name = 'portfolio_index/edit_personal_details_form.html'
     success_url = reverse_lazy('portfolio')  # Redirect to the core settings page after update
 
@@ -40,18 +49,19 @@ class PersonalDetailsUpdateView(LoginRequiredMixin, UpdateView):
         # Fetch the first object for simplicity
         return PersonalDetails.objects.first()  # Adjust if you have specific logic to fetch a specific record
 
-class PortfolioListView(ListView):
+class PortfolioListView(ListView, EnvContextMixin):
     model = PortfolioItem
     template_name = 'portfolio_index/portfolio.html'  # Specify your own template name/location
     context_object_name = 'items'  # Default is 'object_list', we change it to 'items'
 
-class ProjectDetailView(DetailView):
+
+class ProjectDetailView(DetailView, EnvContextMixin):
     model = PortfolioItem
     template_name = 'portfolio_index/project_details.html'
     context_object_name = 'item'
     pk_url_kwarg = 'id'
 
-class PortfolioItemDeleteView(LoginRequiredMixin, DeleteView):
+class PortfolioItemDeleteView(LoginRequiredMixin, DeleteView, EnvContextMixin):
     model = PortfolioItem
     template_name = 'portfolio_index/portfolio_confirm_delete.html'  # Optional: use a template if needed
     success_url = reverse_lazy('portfolio')  # Redirect to the portfolio list after deletion
@@ -61,7 +71,7 @@ class PortfolioItemDeleteView(LoginRequiredMixin, DeleteView):
         # Override to provide custom logic for retrieving the object
         return super().get_object(queryset)
 
-class PortfolioItemCreateView(LoginRequiredMixin, CreateView):
+class PortfolioItemCreateView(LoginRequiredMixin, CreateView, EnvContextMixin):
     model = PortfolioItem
     template_name = 'portfolio_index/portfolio_form.html'
     fields = ['title', 'description', 'image', 'url', 'details']
@@ -73,7 +83,7 @@ class PortfolioItemCreateView(LoginRequiredMixin, CreateView):
         context['action_label'] = 'Add New Project'
         return context
 
-class PortfolioItemUpdateView(LoginRequiredMixin, UpdateView):
+class PortfolioItemUpdateView(LoginRequiredMixin, UpdateView, EnvContextMixin):
     model = PortfolioItem
     template_name = 'portfolio_index/portfolio_form.html'
     fields = ['title', 'description', 'image', 'url', 'details']
@@ -85,7 +95,7 @@ class PortfolioItemUpdateView(LoginRequiredMixin, UpdateView):
         context['action_label'] = 'Update Project'
         return context
 
-class ContactFormView(FormView):
+class ContactFormView(FormView, EnvContextMixin):
     template_name = 'portfolio_index/contact.html'
     form_class = ContactForm
     success_url = reverse_lazy('contact')  # Redirects to the same page on success

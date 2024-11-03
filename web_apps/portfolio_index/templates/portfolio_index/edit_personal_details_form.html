@@ -1,20 +1,45 @@
 <!-- personal/templates/personal/personal_details_form.html -->
 
 {% extends 'base.html' %}
+{% load form_tags %}  <!-- Load your custom template tags -->
 
 {% block title %}Edit Personal Details{% endblock %}
 
 {% block content %}
 <header class="contact-header">
-<h2>Edit Personal Details</h2>
-    </header>
+    <h2>Edit Personal Details</h2>
+</header>
 <div class="contact-form-container">
-<form method="post" class="contact-form">
-    {% csrf_token %}
-    {{ form.as_p }}
-    <button type="submit" class="btn btn-success">Save Changes</button>
-</form>
+    <form method="post" class="contact-form">
+        {% csrf_token %}
+
+        <!-- Render individual fields -->
+        <div class="form-group">
+            <label for="{{ form.name.id_for_label }}">{{ form.name.label }}</label>
+            {{ form.name }}
+        </div>
+        <div class="form-group">
+            <label for="{{ form.title.id_for_label }}">{{ form.title.label }}</label>
+            {{ form.title }}
+        </div>
+        <div class="form-group">
+            <label for="{{ form.bio.id_for_label }}">{{ form.bio.label }}</label>
+            {{ form.bio }}
+        </div>
+        <div class="form-group">
+            <label for="{{ form.linkedin_url.id_for_label }}">{{ form.linkedin_url.label }}</label>
+            {{ form.linkedin_url }}
+        </div>
+        <div class="form-group">
+            <label for="{{ form.github_url.id_for_label }}">{{ form.github_url.label }}</label>
+            {{ form.github_url }}
+        </div>
+        <div class="form-group">
+            <label for="{{ form.skills_tools.id_for_label }}">{{ form.skills_tools.label }}</label>
+            {{ form.skills_tools|add_class:"custom-multiselect" }}  <!-- Add custom class -->
         </div>
 
-
+        <button type="submit" class="btn btn-success">Save Changes</button>
+    </form>
+</div>
 {% endblock %}

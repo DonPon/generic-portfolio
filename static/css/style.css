@@ -71,35 +71,48 @@ button.contact-label:hover {
 }
 .skills-icons {
     display: flex;
-    justify-content: center; /* Center align the icons */
-    flex-wrap: wrap; /* Allow icons to wrap to the next line */
-    margin: 20px 0; /* Add some margin above and below */
+    justify-content: center;
+    flex-wrap: wrap;
+    margin: 20px 0;
+}
+
+.icon-container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    margin: 10px;
 }
 
 .skill-icon {
-    width: 50px; /* Set a consistent width */
-    height: auto; /* Maintain aspect ratio */
-    margin: 10px; /* Add space between icons */
-    transition: transform 0.2s; /* Add a hover effect */
+    width: 50px;
+    height: auto;
+    transition: transform 0.2s;
 }
 
 .skill-icon:hover {
-    transform: scale(1.1); /* Slightly enlarge icon on hover */
+    transform: scale(1.1);
+}
+
+.icon-title {
+    font-size: 10px; /* Small font for the title */
+    color: #666;
+    margin-top: 4px; /* Space between icon and title */
+    text-align: center;
 }
 
 .icon-button {
     display: inline-block;
-    margin: 0 10px; /* Space between icons */
+    margin: 0 10px;
 }
 
 .icon-button img {
-    width: 30px; /* Set the icon size to 20px */
-    height: auto; /* Maintain aspect ratio */
-    transition: transform 0.3s; /* Animation effect */
+    width: 30px;
+    height: auto;
+    transition: transform 0.3s;
 }
 
 .icon-button:hover img {
-    transform: scale(1.1); /* Slightly enlarge icon on hover */
+    transform: scale(1.1);
 }
 
 /* Portfolio styles */
@@ -250,6 +263,9 @@ button.contact-label:hover {
     padding: 2rem;
     border-radius: 10px;
     box-shadow: 0 8px 20px rgba(0, 0, 0, 0.15); /* Soft shadow effect */
+    display: flex;
+    flex-direction: column;
+    align-items: center;
 }
 
 .contact-form .form-group {
@@ -274,6 +290,8 @@ button.contact-label:hover {
     color: #E0E0E0; /* Light text on dark background */
     font-size: 1rem;
     transition: border-color 0.3s ease;
+    display: flex;
+    flex-direction: column;
 }
 
 .contact-form input:focus,
@@ -321,6 +339,52 @@ button.contact-label:hover {
 .messages .error {
     background-color: #5B1E1E; /* Dark red for errors */
     color: #F28B82; /* Light red text */
+}
+.custom-multiselect {
+    width: 100%; /* Full width */
+    padding: 10px; /* Padding for spacing */
+    border: 1px solid #ccc; /* Border style */
+    border-radius: 5px; /* Rounded corners */
+    background-color: #f9f9f9; /* Light background */
+    font-size: 14px; /* Font size */
+    color: #333; /* Text color */
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1); /* Subtle shadow */
+    transition: border-color 0.3s; /* Smooth transition for border color */
+}
+
+.custom-multiselect:focus {
+    border-color: #007bff; /* Highlight border color on focus */
+    outline: none; /* Remove default outline */
+    background-color: #fff; /* Change background on focus */
+}
+
+.custom-multiselect option {
+    padding: 10px; /* Padding for each option */
+}
+
+.custom-multiselect option:hover {
+    background-color: #e9ecef; /* Highlight background on hover */
+    color: #333; /* Change text color on hover */
+}
+
+.custom-multiselect option:checked {
+    background-color: #007bff; /* Background for selected options */
+    color: white; /* Text color for selected options */
+}
+
+/* Optional: Style the placeholder text */
+.custom-multiselect:focus::-ms-input-placeholder {
+    color: #999; /* Placeholder text color */
+}
+
+.custom-multiselect::-ms-input-placeholder {
+    color: #999; /* Placeholder text color */
+}
+
+/* Additional styling for disabled state */
+.custom-multiselect:disabled {
+    background-color: #e9ecef; /* Background color for disabled state */
+    color: #666; /* Text color for disabled state */
 }
 
 /* Mobile responsiveness */

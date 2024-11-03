@@ -2,10 +2,19 @@
 import uuid
 from django.db import models
 
+class Skill(models.Model):
+    name = models.CharField(max_length=50, unique=True)
+    icon_file = models.CharField(max_length=50)
+    def __str__(self):
+        return self.name
+
 class PersonalDetails(models.Model):
     name = models.CharField(max_length=100)
     title = models.CharField(max_length=100)
     bio = models.TextField()
+    linkedin_url = models.URLField(verbose_name='Linkedin url', blank=True)
+    github_url = models.URLField(verbose_name='github url', blank=True)
+    skills_tools = models.ManyToManyField(Skill, blank=True)
 
     class Meta:
         verbose_name = "Personal Details"
@@ -16,9 +25,9 @@ class PortfolioItem(models.Model):
     id = models.UUIDField(primary_key=True, default=uuid.uuid4, editable=False)
     title = models.CharField(max_length=100)
     description = models.TextField(verbose_name="Short description")
-    image = models.ImageField(upload_to='')
+    image = models.ImageField(upload_to='', blank=True)
     url = models.URLField(blank=True)
-    details = models.TextField(verbose_name="Extensive details")
+    details = models.TextField(verbose_name="Extensive details", blank=True)
 
     class Meta:
         verbose_name = "Portfolio projects"

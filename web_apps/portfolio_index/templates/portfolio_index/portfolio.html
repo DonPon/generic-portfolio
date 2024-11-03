@@ -18,14 +18,14 @@
     <h2>Skills / Tools</h2>
 {% load static %}
 <div class="skills-icons">
-    <img src="{% static 'icons/excel.svg' %}" alt="Python" title="excel" class="skill-icon">
-    <img src="{% static 'icons/figma.svg' %}" alt="Postgres" title="figma" class="skill-icon">
-    <img src="{% static 'icons/SEO.svg' %}" alt="JavaScript" title="SEO" class="skill-icon">
-    <img src="{% static 'icons/tableau.svg' %}" alt="Django" title="tableau" class="skill-icon">
-    <img src="{% static 'icons/asana.svg' %}" alt="Selenium" title="asana" class="skill-icon">
-    <img src="{% static 'icons/trello.svg' %}" alt="Selenium" title="trello" class="skill-icon">
-
+    {% for skill in personal_details.skills_tools.all %}
+        <div class="icon-container">
+            <img src="{% static 'icons/' %}{{ skill.icon_file }}" alt="{{ skill.name }}" title="{{ skill.name }}" class="skill-icon">
+            <span class="icon-title">{{ skill.name }}</span>
+        </div>
+    {% endfor %}
 </div>
+
     <br><br>
     <h2>Projects</h2>
 </header>
@@ -39,11 +39,17 @@
     {% for item in items %}
         <div class="portfolio-card">
             <div class="card-content">
+                {% if item.image %}
                 <img src="{{ item.image.url }}" alt="{{ item.title }}" class="card-image">
+                {% endif %}
                 <div class="card-info">
                     <h2>{{ item.title }}</h2>
                     <p>{{ item.description }}</p>
+                    {% if item.details %}
                     <a href="{% url 'project_detail' item.id %}" class="btn btn-primary">View Details</a>
+                    {% else %}
+                    <a href="{{ item.url }}" class="btn btn-primary">Visit project</a>
+                    {% endif %}
                 </div>
             </div>
         </div>
